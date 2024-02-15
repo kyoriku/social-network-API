@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 const userController = {
   async getAllUsers(req, res) {
@@ -58,6 +58,24 @@ const userController = {
 
       await Thought.deleteMany({ _id: { $in: user.thoughts } });
       res.json({ message: 'User and associated thoughts deleted!' });
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  },
+
+  async addFriend(req, res) {
+    try {
+      const user = await User.findByIdAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: { friends: req.params.friendId } },
+        { new: true }
+      );
+  
+      if (!user) {
+        return res.status(404).json({ message: 'No user with that ID' });
+      }
+  
+      res.json(user);
     } catch (error) {
       res.status(400).json(error);
     }
