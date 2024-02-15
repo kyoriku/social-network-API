@@ -80,6 +80,24 @@ const userController = {
       res.status(400).json(error);
     }
   },
-}
+
+  async removeFriend(req, res) {
+    try {
+      const user = await User.findByIdAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { friends: req.params.friendId } },
+        { new: true }
+      );
+  
+      if (!user) {
+        return res.status(404).json({ message: 'No user with that ID' });
+      }
+  
+      res.json(user);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  }
+};
 
 module.exports = userController;
