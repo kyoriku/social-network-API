@@ -31,6 +31,7 @@ const thoughtController = {
     }
   },
 
+  // Method for creating a new thought
   async createThought(req, res) {
     try {
       const user = await User.findById(req.body.userId);
@@ -38,7 +39,7 @@ const thoughtController = {
       if (!user) {
         return res.status(400).json({ message: 'Invalid userId provided' });
       }
-  
+
       const thought = await Thought.create(req.body);
 
       await User.findByIdAndUpdate(
@@ -46,7 +47,7 @@ const thoughtController = {
         { $addToSet: { thoughts: thought._id } },
         { new: true }
       );
-  
+
       res.status(201).json(thought);
     } catch (err) {
       console.error(err);
@@ -54,6 +55,7 @@ const thoughtController = {
     }
   },
 
+  // Method for updating a thought by ID
   async updateThought(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
@@ -63,12 +65,37 @@ const thoughtController = {
       );
 
       if (!thought) {
-        return res.status(404).json({ message: 'No thought with this ID!' });
+        return res.status(404).json({ message: 'No thought with that ID' });
       }
 
       res.json(thought);
     } catch (err) {
       console.error(err);
+      res.status(500).json(err);
+    }
+  },
+
+  // Method for deleting a thought by ID
+  async deleteThought(req, res) {
+    try {
+      const thought = await Thought.findByIdAndDelete(req.params.thoughtId);
+
+      if (!thought) {
+        return res.status(404).json({ message: 'No thought with that ID' });
+      }
+
+      const user = await User.findOneAndUpdate(
+        { thoughts: req.params.thoughtId },
+        { $pull: { thoughts: req.params.thoughtId } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(404).json({ message: 'Thought deleted, but no user found with associated thought ID' });
+      }
+
+      res.json({ message: 'Thought successfully deleted!' });
+    } catch (err) {
       res.status(500).json(err);
     }
   },
