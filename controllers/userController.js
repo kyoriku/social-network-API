@@ -34,6 +34,19 @@ const userController = {
       res.status(400).json(error);
     }
   },
+
+  async updateUser(req, res) {
+    try {
+      const user = await User.findByIdAndUpdate(
+        { _id: req.params.userId },
+        { $set: req.body}, 
+        { runValidators: true, new: true}
+      );
+      res.json(user);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  },
 }
 
 module.exports = userController;
