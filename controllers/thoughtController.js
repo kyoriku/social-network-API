@@ -1,4 +1,4 @@
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
 
 const thoughtController = {
   // Method for getting all thoughts
@@ -27,6 +27,29 @@ const thoughtController = {
 
       res.json(thought);
     } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  async createThought(req, res) {
+    try {
+      const user = await User.findById(req.body.userId);
+
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid userId provided' });
+      }
+  
+      const thought = await Thought.create(req.body);
+
+      await User.findByIdAndUpdate(
+        req.body.userId,
+        { $addToSet: { thoughts: thought._id } },
+        { new: true }
+      );
+  
+      res.status(201).json(thought);
+    } catch (err) {
+      console.error(err);
       res.status(500).json(err);
     }
   },
