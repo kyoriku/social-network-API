@@ -12,7 +12,7 @@
 [![Insomnia](https://img.shields.io/badge/Insomnia-black?style=for-the-badge&logo=insomnia&logoColor=5849BE)](https://insomnia.rest/download/)
 
 ## Description
-The Social Network API is a backend system designed to power a social networking web application. It enables users to share their thoughts, react to friends' thoughts, and manage friend lists. Built using [Express.js](https://expressjs.com/) for routing, [MongoDB](https://www.mongodb.com/) for data storage, and [Mongoose](https://mongoosejs.com/) as the ODM, this API is optimized for handling large amounts of unstructured data efficiently. Whether you're developing a new social media platform or learning about backend development, this API provides a solid foundation for building and structuring social networking applications.
+The Social Network API is a backend system designed to power a social networking web application. It enables users to share their thoughts, react to friends' thoughts, and manage a friend list. Built using [Express.js](https://expressjs.com/) for routing, [MongoDB](https://www.mongodb.com/) for data storage, and [Mongoose](https://mongoosejs.com/) as the ODM, this API is optimized for handling large amounts of unstructured data efficiently. Whether you're developing a new social media platform or learning about backend development, this API provides a solid foundation for building and structuring social networking applications.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -32,7 +32,7 @@ The Social Network API is a backend system designed to power a social networking
     ```bash
     cd social-network-api
     ```
-3. Create a `.env` file in the root directory and add the following variable, replacing `your_mongodb_connection_string` with your actual MongoDB connection string (example: "mongodb://127.0.0.1:27017/SocialNetworkDB").
+3. Create a `.env` file in the root directory and add the following variable, replacing `your_mongodb_connection_string` with your actual MongoDB connection string (example: 'mongodb://127.0.0.1:27017/SocialNetworkDB').
     ``` bash
     MONGODB_URI='your_mongodb_connection_string'
     ```
