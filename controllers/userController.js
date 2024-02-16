@@ -19,7 +19,7 @@ const userController = {
   // Method for getting a single user by ID
   async getUserById(req, res) {
     try {
-      const user = await User.findById(req.params.userId)
+      const user = await User.findOne({ _id: req.params.userId })
         .populate('thoughts')
         .populate('friends');
 
@@ -47,7 +47,7 @@ const userController = {
   // Method for updating a user by ID
   async updateUser(req, res) {
     try {
-      const user = await User.findByIdAndUpdate(
+      const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $set: req.body },
         { runValidators: true, new: true }
@@ -66,11 +66,16 @@ const userController = {
   // Method for deleting a user by ID
   async deleteUser(req, res) {
     try {
-      const user = await User.findByIdAndDelete(req.params.userId);
+      const user = await User.findOneAndDelete({ _id: req.params.userId });
 
       if (!user) {
         return res.status(404).json({ message: 'No user with that ID' });
       }
+
+      await User.updateMany(
+        { friends: req.params.userId }, // Find users who have the deleted user as a friend
+        { $pull: { friends: req.params.userId } } // Pull the deleted user from the friends array
+      );
 
       await Thought.deleteMany({ _id: { $in: user.thoughts } });
 

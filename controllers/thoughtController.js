@@ -19,7 +19,7 @@ const thoughtController = {
   // Method for getting a single thought by ID
   async getThoughtById(req, res) {
     try {
-      const thought = await Thought.findById(req.params.thoughtId);
+      const thought = await Thought.findOne({ _id: req.params.thoughtId });
 
       if (!thought) {
         return res.status(404).json({ message: 'No thought with that ID' });
@@ -34,7 +34,7 @@ const thoughtController = {
   // Method for creating a new thought
   async createThought(req, res) {
     try {
-      const user = await User.findById(req.body.userId);
+      const user = await User.findOne({ _id: req.body.userId });
 
       if (!user) {
         return res.status(400).json({ message: 'Invalid userId provided' });
@@ -42,8 +42,8 @@ const thoughtController = {
 
       const thought = await Thought.create(req.body);
 
-      await User.findByIdAndUpdate(
-        req.body.userId,
+      await User.findOneAndUpdate(
+        { _id: req.body.userId },
         { $addToSet: { thoughts: thought._id } },
         { new: true }
       );
@@ -78,7 +78,7 @@ const thoughtController = {
   // Method for deleting a thought by ID
   async deleteThought(req, res) {
     try {
-      const thought = await Thought.findByIdAndDelete(req.params.thoughtId);
+      const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
 
       if (!thought) {
         return res.status(404).json({ message: 'No thought with that ID' });
