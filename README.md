@@ -53,7 +53,7 @@ The Social Network API is a backend system designed to power a social networking
      - GET `/api/users/:userId`: Get a single user by id
      - POST `/api/users`: Create a new user
      - PUT `/api/users/:userId`: Update a user by id
-     - DELETE `/api/users/:userId`: Delete a user by id, and remove the user's associated thoughts when deleted. Also, remove the deleted user from other user's friend lists.
+     - DELETE `/api/users/:userId`: Delete a user by id, and remove the users associated thoughts when deleted. Also, remove the deleted user from other users friend lists.
 
    - **Thoughts**
      - GET `/api/thoughts`: Get all thoughts
@@ -63,8 +63,8 @@ The Social Network API is a backend system designed to power a social networking
      - DELETE `/api/thoughts/:thoughtId`: Delete a thought by id
 
    - **Friends**
-     - POST `/api/users/:userId/friends/:friendId`: Add a friend to a user's friend list
-     - DELETE `/api/users/:userId/friends/:friendId`: Remove a friend from a user's friend list
+     - POST `/api/users/:userId/friends/:friendId`: Add a friend to a users friend list
+     - DELETE `/api/users/:userId/friends/:friendId`: Remove a friend from a users friend list
 
    - **Reactions**
      - POST `/api/thoughts/:thoughtId/reactions`: Create a reaction for a specific thought
