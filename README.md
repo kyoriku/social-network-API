@@ -73,6 +73,9 @@ The Social Network API is a backend system designed to power a social networking
    These routes have been thoroughly tested to verify their functionality. Remember to configure your environment variables and database connections appropriately before running the API.
 
 ## Walkthrough Video
+[Link to walkthrough video](https://drive.google.com/file/d/1l_36mtZ3UfuhjGEd1akKxOmcfXskJke6/view?usp=sharing)
+
+https://github.com/kyoriku/social-network-api/assets/145511725/55ec128d-a5b1-4f60-924e-b579e9f7670e
 
 ## Credits
 - [How to Validate Unique Emails with Mongoose](https://masteringjs.io/tutorials/mongoose/mongoose-validate-unique-email)
